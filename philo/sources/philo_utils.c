@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_errors.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/03 20:23:31 by javigarc          #+#    #+#             */
+/*   Updated: 2023/01/30 18:02:34 by javigarc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+void	ft_exit_error(void)
+{
+	write(2, "Error\n", 6);
+	exit(0);
+}
+
+void	ft_pr_action(int op)
+{
+	if (op == 1)
+		write(1, "sa\n", 3);
+	if (op == 2)
+		write(1, "sb\n", 3);
+	if (op == 3)
+		write(1, "ss\n", 3);
+	if (op == 4)
+		write(1, "pa\n", 3);
+	if (op == 5)
+		write(1, "pb\n", 3);
+	if (op == 6)
+		write(1, "ra\n", 3);
+	if (op == 7)
+		write(1, "rb\n", 3);
+	if (op == 8)
+		write(1, "rr\n", 3);
+	if (op == 9)
+		write(1, "rra\n", 4);
+	if (op == 10)
+		write(1, "rrb\n", 4);
+	if (op == 11)
+		write(1, "rrr\n", 4);
+}
