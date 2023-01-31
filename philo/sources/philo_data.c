@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/01/30 18:01:26 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/01/31 11:54:31 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_data_validation(char **data, int argc)
 	{
 		chk = ft_myatoi(data[i]);
 		if ((chk < 0) || (chk > INT_MAX))
-			ft_exit_error();
+			ft_exit_error(2);
 		i++;
 	}
 }
@@ -46,10 +46,10 @@ long	ft_myatoi(const char *str)
 		i++;
 	}
 	if ((!str[i]) || (str[i] == '\0') || (str[i] < 48) || (str[i] > 57))
-		ft_exit_error();
+		ft_exit_error(2);
 	while ((str[i] != '\0') && (str[i] >= 48 && str[i] <= 57))
 		atoi = atoi * 10 + (str[i++] - 48);
 	if (str[i])
-		ft_exit_error();
+		ft_exit_error(2);
 	return (atoi * sign);
 }

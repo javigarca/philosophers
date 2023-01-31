@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_errors.c                                     :+:      :+:    :+:   */
+/*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:23:31 by javigarc          #+#    #+#             */
-/*   Updated: 2023/01/30 18:02:34 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/01/31 12:38:56 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_exit_error(void)
+void	ft_exit_error(int err)
 {
-	write(2, "Error\n", 6);
+	if (err == 1)
+		ft_write_str("Usage ./philo nbr_philos time_die time_eat time_sleep (optional) times_must_eat.\n", 2);
+	if (err == 2)
+		ft_write_str("Invalid arguments.\n", 2);
+	if (!err)
+		ft_write_str("Error.\n", 2);
 	exit(0);
 }
 
-void	ft_pr_action(int op)
+int	ft_write_str(char *str, int channel)
 {
-	if (op == 1)
-		write(1, "sa\n", 3);
-	if (op == 2)
-		write(1, "sb\n", 3);
-	if (op == 3)
-		write(1, "ss\n", 3);
-	if (op == 4)
-		write(1, "pa\n", 3);
-	if (op == 5)
-		write(1, "pb\n", 3);
-	if (op == 6)
-		write(1, "ra\n", 3);
-	if (op == 7)
-		write(1, "rb\n", 3);
-	if (op == 8)
-		write(1, "rr\n", 3);
-	if (op == 9)
-		write(1, "rra\n", 4);
-	if (op == 10)
-		write(1, "rrb\n", 4);
-	if (op == 11)
-		write(1, "rrr\n", 4);
+	int	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	write(channel, str, len);
+	return (len);
+}
+
+long long	ft_time_now(void)
+{
+	struct timeval	time;
+	long long		now;
+
+	gettimeofday(&time, NULL);
+	now =(time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (now);
 }
