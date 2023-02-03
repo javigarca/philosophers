@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/01/31 11:54:31 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/03 21:55:54 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	ft_data_validation(char **data, int argc)
 			ft_exit_error(2);
 		i++;
 	}
+}
+
+void	ft_set_table(char **data, int argc, t_table *table)
+{
+	table->total_philos = ft_myatoi(data[1]);
+	table->env.time_die = ft_myatoi(data[2]);
+	table->env.time_eat = ft_myatoi(data[3]);
+	table->env.time_sleep = ft_myatoi(data[4]);
+	if (argc == 6)
+		table->env.times_m_eat = ft_myatoi(data[5]);
+	else
+		table->env.times_m_eat = 0;
+	ft_set_mutex(table);
+	ft_set_philos(table);
+	ft_set_threads(table);
 }
 
 long	ft_myatoi(const char *str)

@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:23:31 by javigarc          #+#    #+#             */
-/*   Updated: 2023/01/31 12:38:56 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/01 17:07:11 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_exit_error(int err)
 		ft_write_str("Usage ./philo nbr_philos time_die time_eat time_sleep (optional) times_must_eat.\n", 2);
 	if (err == 2)
 		ft_write_str("Invalid arguments.\n", 2);
+	if (err == 3)
+		ft_write_str("Memory error.\n", 2);
 	if (!err)
 		ft_write_str("Error.\n", 2);
 	exit(0);
