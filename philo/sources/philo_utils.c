@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:23:31 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/06 18:39:32 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:07:37 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void    ft_print(t_philo *philo, char *msg)
 
 	pthread_mutex_lock(&philo->env->message);
 	now = ft_timestamp(philo->env->start_time);
-	printf("%05lld Philosopher %d %s\n", now, philo->p_id, msg);
+	printf("%.05lld Philosopher %d %s\n", now, philo->p_id, msg);
 	pthread_mutex_unlock(&philo->env->message);
 }

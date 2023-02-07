@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:27:45 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/06 18:23:28 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:04:00 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,10 @@ void		ft_set_threads(t_table *table);
 void		ft_start_threads(t_table *table);
 // philo_threads //
 void		*ft_philo_thread(void *args);
-void		ft_philo_dies(t_philo *philo);
+void		ft_sleep(long long time);
+// philo_actions //
+int			ft_philo_eats(t_philo *philo);
+int			ft_philo_sleeps(t_philo *philo);
+int			ft_philo_thinks(t_philo	*philo);
+int			ft_philo_dies(t_philo *philo);
 #endif

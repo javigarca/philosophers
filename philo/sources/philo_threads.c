@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/06 18:41:04 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:31:03 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,32 @@
 void	*ft_philo_thread(void *args)
 {
 	t_philo *philo;
-	int		d;
 	
 	philo = (t_philo *) args;
-// si el tiempo a morir es 0 o menor de ahora con last meal, muere
-	// se pone a comer
-	// se pone a dormir
-	// se pone a pensar
-	d = 0;
-	if (!philo->p_id % 2)
-		usleep(1500);
+// DEATHHHHHHH//////////////////
+	if (philo->p_id % 2)
+		ft_sleep(50);
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	while (!philo->dead)
 	{
-		printf("PHILO %i\n", philo->p_id);
-		ft_print(philo, "is drinking");
-		d++;
-		if (d == philo->env->times_m_eat)
-			ft_philo_dies(philo);
+		ft_philo_eats(philo);
+		if (philo->env->times_m_eat == philo->meals_eaten)
+		{
+			ft_print(philo, "is full");
+			break;
+		}
+		ft_philo_sleeps(philo);
+		ft_philo_thinks(philo);
 	}
 	return(0);
 }
 
-void	ft_philo_dies(t_philo *philo)
+void	ft_sleep(long long time)
 {
-	philo->dead = 1;
-	ft_print(philo, "is dead");
+	long long start;
+
+	start = ft_time_now();
+	while ((ft_time_now() - start) <= time)
+		usleep(50);
 }

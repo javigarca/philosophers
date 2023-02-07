@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:57:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/06 18:28:41 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:31:46 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	long long	time;
+//	long long	time;
 	t_table		table;
 //	int			i;
 
@@ -23,8 +23,8 @@ int	main(int argc, char **argv)
 	ft_data_validation(argv, argc);
 	ft_set_table(argv, argc, &table);
 	ft_start_threads(&table);
-	ft_write_str("todo bien\n", 1);
-	time = ft_time_now();
+//	ft_write_str("todo bien\n", 1);
+//	time = ft_time_now();
 	ft_free_table(&table);
 /*	printf("Tiempo: %04lld \n", time);
 	i = 0;
