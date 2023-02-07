@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:23:31 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/01 17:07:11 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:39:32 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ long long	ft_time_now(void)
 	gettimeofday(&time, NULL);
 	now =(time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (now);
+}
+
+long long	ft_timestamp(long long time)
+{
+	long long		now;
+
+	now = ft_time_now();
+	return (now - time);
+}
+
+void    ft_print(t_philo *philo, char *msg)
+{
+	long long   now;
+
+	pthread_mutex_lock(&philo->env->message);
+	now = ft_timestamp(philo->env->start_time);
+	printf("%05lld Philosopher %d %s\n", now, philo->p_id, msg);
+	pthread_mutex_unlock(&philo->env->message);
 }

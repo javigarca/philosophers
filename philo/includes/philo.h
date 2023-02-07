@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 15:27:45 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/03 22:07:32 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:23:28 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_env
 	int				time_sleep;
 	int				times_m_eat;
 	long long		start_time;
+	pthread_mutex_t	message;
 }			t_env;
 
 typedef struct s_philo
@@ -41,7 +42,7 @@ typedef struct s_philo
 	pthread_mutex_t	*forkl;
 	pthread_mutex_t	*forkr;
 	int				dead;
-	t_env			env;
+	t_env			*env;
 }			t_philo;
 
 typedef struct	s_table
@@ -56,15 +57,20 @@ typedef struct	s_table
 void		ft_data_validation(char **data, int argc);
 void		ft_set_table(char **data, int argc, t_table *table);
 long		ft_myatoi(const char *str);
+void		ft_free_table(t_table *table);
 // philo_utils //
 void		ft_exit_error(int err);
 int			ft_write_str(char *str, int channel);
 long long	ft_time_now(void);
+long long	ft_timestamp(long long time);
+void		ft_print(t_philo *philo, char *msg);
 // philo_init //
 void		ft_set_mutex(t_table *table);
 void		ft_set_philos(t_table *table);
 void		ft_set_forks(t_philo *philo, t_table *table);
 void		ft_set_threads(t_table *table);
+void		ft_start_threads(t_table *table);
 // philo_threads //
 void		*ft_philo_thread(void *args);
+void		ft_philo_dies(t_philo *philo);
 #endif

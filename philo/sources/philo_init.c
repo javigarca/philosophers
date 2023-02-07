@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 19:32:13 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/03 22:00:24 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:32:28 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_set_mutex(t_table *table)
 {
 	int	i;
 
+	pthread_mutex_init(&table->env.message, NULL);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->total_philos);
 	if (!table->forks)
 		ft_exit_error(3);
@@ -41,7 +42,7 @@ void	ft_set_philos(t_table *table)
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].last_meal = 0;
 		table->philos[i].dead = 0;
-		table->philos[i].env = table->env;
+		table->philos[i].env = &table->env;
 		ft_set_forks(&table->philos[i], table);
 	}
 		
@@ -64,9 +65,14 @@ void	ft_set_threads(t_table *table)
 
 	i = -1;
 	while (++i < table->total_philos)
-	{
 		pthread_create(&table->philos[i].t_id, NULL, &ft_philo_thread, &table->philos[i]);
-		pthread_join(table->philos[i].t_id, NULL);
-	}
+}
 
+void	ft_start_threads(t_table *table)
+{
+	int i;
+
+	i = -1;
+	while (++i < table->total_philos)
+		pthread_join(table->philos[i].t_id, NULL);
 }

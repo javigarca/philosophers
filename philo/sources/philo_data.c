@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/03 21:55:54 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:29:10 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_set_table(char **data, int argc, t_table *table)
 	else
 		table->env.times_m_eat = 0;
 	ft_set_mutex(table);
+	table->env.start_time = ft_time_now();
 	ft_set_philos(table);
 	ft_set_threads(table);
 }
@@ -67,4 +68,16 @@ long	ft_myatoi(const char *str)
 	if (str[i])
 		ft_exit_error(2);
 	return (atoi * sign);
+}
+
+void	ft_free_table(t_table *table)
+{
+	int	i;
+
+	pthread_mutex_destroy(&table->env.message);
+	i = -1;
+	while (++i < table->total_philos)
+		pthread_mutex_destroy(&table->forks[i]);
+	free(table->forks);
+	free(table->philos);
 }
