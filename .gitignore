@@ -1,0 +1,6 @@
+fdf.dSYM/
+.*.swp
+.DS*
+test.c
+*.c.bak
+push_swap_tester/
