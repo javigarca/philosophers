@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/03 20:23:31 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/16 13:27:03 by javigarc         ###   ########.fr       */
+/*   Created: 2023/02/16 16:14:41 by javigarc          #+#    #+#             */
+/*   Updated: 2023/02/16 17:14:11 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	ft_exit_error(int err)
 		ft_write_str("Invalid arguments.\n", 2);
 	if (err == 3)
 		ft_write_str("Memory error.\n", 2);
+	if (err == 4)
+		ft_write_str("Mutex error.\n", 2);
+	if (err == 5)
+		ft_write_str("Thread creation.\n", 2);
+	if (err == 6)
+		ft_write_str("Thread join.\n", 2);
 	if (!err)
 		ft_write_str("Error.\n", 2);
 	exit(0);
