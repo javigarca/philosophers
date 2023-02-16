@@ -3,7 +3,7 @@
 
 
 
-void ft_putnbr(long dig, int len, char *sign, int total) 
+int ft_putnbr(long dig, int len, char *sign, int total) 
 {
 	if (dig >= len)
 		ft_putnbr(dig/len, len, sign, total);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 15:27:45 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/07 19:04:00 by javigarc         ###   ########.fr       */
+/*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
+/*   Updated: 2023/02/16 13:28:56 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_philo
 	t_env			*env;
 }			t_philo;
 
-typedef struct	s_table
+typedef struct s_table
 {
 	int				total_philos;
 	pthread_mutex_t	*forks;
