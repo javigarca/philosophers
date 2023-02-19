@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/06 18:29:10 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/19 23:01:57 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_data_validation(char **data, int argc)
 void	ft_set_table(char **data, int argc, t_table *table)
 {
 	table->total_philos = ft_myatoi(data[1]);
+	table->env.death = 0;
+	table->env.fat = 0;
 	table->env.time_die = ft_myatoi(data[2]);
 	table->env.time_eat = ft_myatoi(data[3]);
 	table->env.time_sleep = ft_myatoi(data[4]);

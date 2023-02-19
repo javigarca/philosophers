@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/16 17:32:52 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/19 23:01:27 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	ft_set_philos(t_table *table)
 	{
 		table->philos[i].p_id = i + 1;
 		table->philos[i].meals_eaten = 0;
-		table->philos[i].last_meal = 0;
-		table->philos[i].dead = 0;
+		table->philos[i].last_meal = table->env.start_time;
 		table->philos[i].env = &table->env;
 		ft_set_forks(&table->philos[i], table);
 	}
@@ -63,15 +62,9 @@ void	ft_set_threads(t_table *table)
 	int	i;
 
 	i = -1;
-	if (pthread_create(&table->aristotle, NULL, &ft_aristotle, &table))
+	if (pthread_create(&table->aristotle, NULL, &ft_aristotle, table))
 		ft_exit_error(5);
-	else
-	{
-		pthread_mutex_lock(&table->env.message);
-		ft_write_str("ARIS BORN", 1);
-		pthread_mutex_unlock(&table->env.message);
-	}
-	while (++i < table->total_philos)
+		while (++i < table->total_philos)
 	{
 		if (pthread_create(&table->philos[i].t_id, NULL, &ft_philo_thread, \
 				&table->philos[i]))
@@ -84,17 +77,11 @@ void	ft_start_threads(t_table *table)
 	int	i;
 
 	i = -1;
-	if (pthread_join(table->aristotle, NULL))
-		ft_exit_error(6);
-	else
-	{
-		pthread_mutex_lock(&table->env.message);
-		ft_write_str("ARIS ENGAGED", 1);
-		pthread_mutex_unlock(&table->env.message);
-	}
 	while (++i < table->total_philos)
 	{
 		if (pthread_join(table->philos[i].t_id, NULL))
 			ft_exit_error(6);
 	}
+	if (pthread_join(table->aristotle, NULL))
+		ft_exit_error(6);
 }

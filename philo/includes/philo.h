@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/16 17:32:57 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/19 21:02:47 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_env
 	int				time_sleep;
 	int				times_m_eat;
 	long long		start_time;
+	int				death;
+	int				fat;
 	pthread_mutex_t	message;
 }			t_env;
 
@@ -41,7 +43,6 @@ typedef struct s_philo
 	long long		last_meal;
 	pthread_mutex_t	*forkl;
 	pthread_mutex_t	*forkr;
-	int				dead;
 	t_env			*env;
 }			t_philo;
 
@@ -75,7 +76,6 @@ void		ft_start_threads(t_table *table);
 void		*ft_philo_thread(void *args);
 void		ft_sleep(long long time);
 void		*ft_aristotle(void *args);
-void		ft_terminate(t_table *table);
 // philo_actions //
 int			ft_philo_eats(t_philo *philo);
 int			ft_philo_sleeps(t_philo *philo);

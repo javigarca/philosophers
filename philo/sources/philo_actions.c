@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/16 16:57:10 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/19 21:02:08 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_philo_eats(t_philo *philo)
 	pthread_mutex_unlock(philo->forkl);
 	pthread_mutex_unlock(philo->forkr);
 	philo->meals_eaten++;
+	philo->last_meal = ft_timestamp(philo->env->start_time);
 	return (0);
 }
 
@@ -46,7 +47,7 @@ int	ft_philo_thinks(t_philo *philo)
 
 int	ft_philo_dies(t_philo *philo)
 {
-	philo->dead = 1;
+	philo->env->death = 1;
 	ft_print(philo, "is dead");
 	return (0);
 }
