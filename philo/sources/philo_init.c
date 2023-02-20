@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/19 23:01:27 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 15:43:26 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_set_mutex(t_table *table)
 	int	i;
 
 	pthread_mutex_init(&table->env.message, NULL);
+	pthread_mutex_init(&table->env.genesis, NULL);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->total_philos);
 	if (!table->forks)
 		ft_exit_error(3);
@@ -62,6 +63,7 @@ void	ft_set_threads(t_table *table)
 	int	i;
 
 	i = -1;
+	pthread_mutex_lock(&table->env.genesis);
 	if (pthread_create(&table->aristotle, NULL, &ft_aristotle, table))
 		ft_exit_error(5);
 		while (++i < table->total_philos)
@@ -70,6 +72,7 @@ void	ft_set_threads(t_table *table)
 				&table->philos[i]))
 			ft_exit_error(5);
 	}
+	pthread_mutex_unlock(&table->env.genesis);
 }
 
 void	ft_start_threads(t_table *table)

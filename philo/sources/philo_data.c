@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/19 23:01:57 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 15:23:46 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_free_table(t_table *table)
 	int	i;
 
 	pthread_mutex_destroy(&table->env.message);
+	pthread_mutex_destroy(&table->env.genesis);
 	i = -1;
 	while (++i < table->total_philos)
 		pthread_mutex_destroy(&table->forks[i]);

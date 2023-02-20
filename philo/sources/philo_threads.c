@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/19 23:07:36 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 16:32:51 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,22 @@ void	*ft_philo_thread(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *) args;
-	if (philo->p_id % 2)
-		ft_sleep(100);
+	pthread_mutex_lock(&philo->env->genesis);
+	pthread_mutex_unlock(&philo->env->genesis);
+	if (!(philo->p_id % 2))
+		usleep(10000);
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
-	while (!philo->env->death)
+	while (philo->env->death == 0)
 	{
 		if (!ft_philo_eats(philo))
 		{
 			if (philo->env->times_m_eat == philo->meals_eaten)
 				philo->env->fat++;
 		}
-		ft_philo_sleeps(philo);
-		ft_philo_thinks(philo);
+		else
+			return (NULL);
+		ft_philo_sleeps(philo, philo->env->death);
 	}
 	return (NULL);
 }
@@ -58,19 +61,20 @@ void	*ft_aristotle(void *args)
 			hungry = ft_timestamp(academia->philos[i].last_meal);
 			if (hungry > academia->env.time_die)
 			{
-				printf("Hun: %lli\n", hungry);
-				ft_write_str("Aristotle sees you fasting. DIE!!\n", 1);
+				//ft_write_str("Aristotle sees you fasting. DIE!!\n", 1);
 				ft_philo_dies(&academia->philos[i]);
-			//		return (NULL);;
+				printf("DEATH = %i\n", academia->env.death);
+					return (NULL);
 			}
 		}
 		if (academia->env.times_m_eat && (academia->env.fat == academia->total_philos))
 		{
-			ft_write_str("All philos are full and happy", 1);
+			//ft_write_str("All philos are full and happy\n", 1);
+			ft_print(&academia->philos[0], "FULL && HAPPY\n");
 			academia->env.death = 1;
+			return (NULL);
 		}
-		ft_sleep(100);
+		ft_sleep(10);
 	}
-
 	return (NULL);
 }
