@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 16:18:39 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 18:27:33 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_philo_eats(t_philo *philo)
 {
- printf("TH = %i\n", philo->env->death);
 	if (philo->env->death)
 		return (1);
 	pthread_mutex_lock(philo->forkl);

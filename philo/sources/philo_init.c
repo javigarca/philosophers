@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 15:43:26 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 18:38:42 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_set_threads(t_table *table)
 	pthread_mutex_unlock(&table->env.genesis);
 }
 
-void	ft_start_threads(t_table *table)
+int	ft_start_threads(t_table *table)
 {
 	int	i;
 
@@ -87,4 +87,5 @@ void	ft_start_threads(t_table *table)
 	}
 	if (pthread_join(table->aristotle, NULL))
 		ft_exit_error(6);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 16:17:06 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 18:39:43 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		ft_set_mutex(t_table *table);
 void		ft_set_philos(t_table *table);
 void		ft_set_forks(t_philo *philo, t_table *table);
 void		ft_set_threads(t_table *table);
-void		ft_start_threads(t_table *table);
+int			ft_start_threads(t_table *table);
 // philo_threads //
 void		*ft_philo_thread(void *args);
 void		ft_sleep(long long time);

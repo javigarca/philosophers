@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 16:32:51 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/20 18:44:36 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,36 @@ void	*ft_aristotle(void *args)
 			hungry = ft_timestamp(academia->philos[i].last_meal);
 			if (hungry > academia->env.time_die)
 			{
-				//ft_write_str("Aristotle sees you fasting. DIE!!\n", 1);
 				ft_philo_dies(&academia->philos[i]);
-				printf("DEATH = %i\n", academia->env.death);
-					return (NULL);
+				ft_terminate(academia);
+				return (NULL);
 			}
 		}
 		if (academia->env.times_m_eat && (academia->env.fat == academia->total_philos))
 		{
-			//ft_write_str("All philos are full and happy\n", 1);
-			ft_print(&academia->philos[0], "FULL && HAPPY\n");
+			ft_write_str("All philos are full and happy\n", 1);
 			academia->env.death = 1;
+			ft_terminate(academia);
 			return (NULL);
 		}
 		ft_sleep(10);
 	}
 	return (NULL);
+}
+
+void	ft_terminate(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	printf("tErMiNaTe\n");
+	while (i < table->total_philos)
+	{
+		if (!pthread_cancel(table->philos[i].t_id))
+			printf("Hilo cerrado: %i\n", i);
+		i++;
+	}
+	pthread_cancel(table->aristotle);
+	printf("ARIS cerrado\n");
+	printf("esto\n");
 }
