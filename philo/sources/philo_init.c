@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 18:38:42 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:08:01 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_set_threads(t_table *table)
 	pthread_mutex_lock(&table->env.genesis);
 	if (pthread_create(&table->aristotle, NULL, &ft_aristotle, table))
 		ft_exit_error(5);
-		while (++i < table->total_philos)
+	while (++i < table->total_philos)
 	{
 		if (pthread_create(&table->philos[i].t_id, NULL, &ft_philo_thread, \
 				&table->philos[i]))

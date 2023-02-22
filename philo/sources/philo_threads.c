@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 18:44:36 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/22 13:36:35 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,21 @@ void	*ft_aristotle(void *args)
 			if (hungry > academia->env.time_die)
 			{
 				ft_philo_dies(&academia->philos[i]);
+				pthread_mutex_lock(&academia->env.message);
 				ft_terminate(academia);
+			//	pthread_cancel(pthread_self());
+				printf("salida de deaths\n");
 				return (NULL);
 			}
 		}
-		if (academia->env.times_m_eat && (academia->env.fat == academia->total_philos))
+		if (academia->env.times_m_eat && \
+				(academia->env.fat == academia->total_philos))
 		{
 			ft_write_str("All philos are full and happy\n", 1);
 			academia->env.death = 1;
+			pthread_mutex_lock(&academia->env.message);
 			ft_terminate(academia);
+			printf("salida de fulls\n");
 			return (NULL);
 		}
 		ft_sleep(10);
@@ -86,11 +92,11 @@ void	ft_terminate(t_table *table)
 	printf("tErMiNaTe\n");
 	while (i < table->total_philos)
 	{
-		if (!pthread_cancel(table->philos[i].t_id))
+		pthread_exit(table->philos[i].t_id);
+	/*	if (!pthread_cancel(table->philos[i].t_id))
 			printf("Hilo cerrado: %i\n", i);
-		i++;
+	*/	i++;
 	}
 	pthread_cancel(table->aristotle);
 	printf("ARIS cerrado\n");
-	printf("esto\n");
 }

@@ -6,13 +6,20 @@
 #    By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:38:08 by javigarc          #+#    #+#              #
-#    Updated: 2023/01/30 17:49:31 by javigarc         ###   ########.fr        #
+#    Updated: 2023/02/22 13:37:32 by javigarc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	philo
 
-SRCS		=	$(wildcard sources/*.c) 
+SDIR		=	sources/
+
+SRCS		=	$(SDIR)/philo.c \
+				$(SDIR)/philo_actions.c \
+				$(SDIR)/philo_data.c \
+				$(SDIR)/philo_init.c \
+				$(SDIR)/philo_threads.c \
+				$(SDIR)/philo_utils.c \
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -35,4 +42,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all philo clean fclean re
+.PHONY: all philo clean fclean re philo
