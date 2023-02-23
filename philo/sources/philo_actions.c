@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/22 13:36:38 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:29:08 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	ft_philo_eats(t_philo *philo)
 	return (0);
 }
 
-int	ft_philo_sleeps(t_philo *philo, int death)
+int	ft_philo_sleeps(t_philo *philo)
 {
-	if (philo && !death)
+	if (philo && !(philo->env->death))
 	{
 		ft_print(philo, "is sleeping");
 		ft_sleep(philo->env->time_sleep);
@@ -45,7 +45,7 @@ int	ft_philo_sleeps(t_philo *philo, int death)
 
 int	ft_philo_thinks(t_philo *philo)
 {
-	if (philo)
+	if (philo && !(philo->env->death))
 		ft_print(philo, "is thinking");
 	return (0);
 }

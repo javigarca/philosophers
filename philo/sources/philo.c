@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:57:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/22 13:27:38 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:21:59 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int argc, char **argv)
 	ft_data_validation(argv, argc);
 	ft_set_table(argv, argc, &table);
 	ft_start_threads(&table);
+	printf("FUERA DE START THREADS");
 	ft_free_table(&table);
+	printf("AQUI ES FIN");
 	return (0);
 }

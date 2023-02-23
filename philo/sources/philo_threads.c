@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/22 13:36:35 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/23 13:29:06 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_philo_thread(void *args)
 		usleep(10000);
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
-	while (philo->env->death == 0)
+	while (!philo->env->death)
 	{
 		if (!ft_philo_eats(philo))
 		{
@@ -32,7 +32,8 @@ void	*ft_philo_thread(void *args)
 		}
 		else
 			return (NULL);
-		ft_philo_sleeps(philo, philo->env->death);
+		ft_philo_sleeps(philo);
+		ft_sleep(50);
 	}
 	return (NULL);
 }
@@ -62,9 +63,10 @@ void	*ft_aristotle(void *args)
 			if (hungry > academia->env.time_die)
 			{
 				ft_philo_dies(&academia->philos[i]);
-				pthread_mutex_lock(&academia->env.message);
-				ft_terminate(academia);
-			//	pthread_cancel(pthread_self());
+		//		pthread_mutex_lock(&academia->env.message);
+	//			ft_terminate(academia);
+		//		pthread_mutex_unlock(&academia->env.message);
+	//			pthread_cancel(pthread_self());
 				printf("salida de deaths\n");
 				return (NULL);
 			}
@@ -74,9 +76,11 @@ void	*ft_aristotle(void *args)
 		{
 			ft_write_str("All philos are full and happy\n", 1);
 			academia->env.death = 1;
-			pthread_mutex_lock(&academia->env.message);
-			ft_terminate(academia);
+		//	pthread_mutex_lock(&academia->env.message);
+	//		ft_terminate(academia);
+	//		pthread_exit(NULL);
 			printf("salida de fulls\n");
+		//	pthread_mutex_unlock(&academia->env.message);
 			return (NULL);
 		}
 		ft_sleep(10);
@@ -92,11 +96,12 @@ void	ft_terminate(t_table *table)
 	printf("tErMiNaTe\n");
 	while (i < table->total_philos)
 	{
-		pthread_exit(table->philos[i].t_id);
-	/*	if (!pthread_cancel(table->philos[i].t_id))
+//		pthread_exit(table->philos[i].t_id);
+		if (!pthread_cancel(table->philos[i].t_id))
 			printf("Hilo cerrado: %i\n", i);
-	*/	i++;
+		i++;
 	}
-	pthread_cancel(table->aristotle);
-	printf("ARIS cerrado\n");
+	printf("Sali del hilo?\n");
+//	pthread_exit(table->aristotle);
+//	printf("ARIS cerrado\n");
 }
