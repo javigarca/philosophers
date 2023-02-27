@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/23 13:29:06 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:56:14 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_philo_thread(void *args)
 	pthread_mutex_lock(&philo->env->genesis);
 	pthread_mutex_unlock(&philo->env->genesis);
 	if (!(philo->p_id % 2))
-		usleep(10000);
+		usleep(1000);
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	while (!philo->env->death)
@@ -33,75 +33,58 @@ void	*ft_philo_thread(void *args)
 		else
 			return (NULL);
 		ft_philo_sleeps(philo);
-		ft_sleep(50);
+		usleep(50);
 	}
 	return (NULL);
 }
 
-void	ft_sleep(long long time)
+void	ft_sleep(long long time, int *death)
 {
 	long long	start;
 
 	start = ft_time_now();
-	while ((ft_time_now() - start) <= time)
+	while (!*death)
+	{
+		if ((ft_time_now() - start) >= time)
+			break ;
 		usleep(50);
+	}
 }
 
 void	*ft_aristotle(void *args)
 {
 	t_table		*academia;
-	int			i;
-	long long	hungry;
 
 	academia = (t_table *) args;
 	while (academia->env.death == 0)
 	{
-		i = -1;
-		while (++i < academia->total_philos)
-		{
-			hungry = ft_timestamp(academia->philos[i].last_meal);
-			if (hungry > academia->env.time_die)
-			{
-				ft_philo_dies(&academia->philos[i]);
-		//		pthread_mutex_lock(&academia->env.message);
-	//			ft_terminate(academia);
-		//		pthread_mutex_unlock(&academia->env.message);
-	//			pthread_cancel(pthread_self());
-				printf("salida de deaths\n");
-				return (NULL);
-			}
-		}
+		if (ft_check_death(academia))
+			return (NULL);
 		if (academia->env.times_m_eat && \
 				(academia->env.fat == academia->total_philos))
 		{
-			ft_write_str("All philos are full and happy\n", 1);
 			academia->env.death = 1;
-		//	pthread_mutex_lock(&academia->env.message);
-	//		ft_terminate(academia);
-	//		pthread_exit(NULL);
-			printf("salida de fulls\n");
-		//	pthread_mutex_unlock(&academia->env.message);
 			return (NULL);
 		}
-		ft_sleep(10);
+		usleep(10);
 	}
 	return (NULL);
 }
 
-void	ft_terminate(t_table *table)
+int	ft_check_death(t_table *academia)
 {
-	int	i;
+	int			i;
+	long long	hungry;
 
-	i = 0;
-	printf("tErMiNaTe\n");
-	while (i < table->total_philos)
+	i = -1;
+	while (++i < academia->total_philos)
 	{
-//		pthread_exit(table->philos[i].t_id);
-		if (!pthread_cancel(table->philos[i].t_id))
-			printf("Hilo cerrado: %i\n", i);
-		i++;
+		hungry = ft_timestamp(academia->philos[i].last_meal);
+		if (hungry > academia->env.time_die)
+		{
+			ft_philo_dies(&academia->philos[i]);
+			return (1);
+		}
 	}
-	printf("Sali del hilo?\n");
-//	pthread_exit(table->aristotle);
-//	printf("ARIS cerrado\n");
+	return (0);
 }
