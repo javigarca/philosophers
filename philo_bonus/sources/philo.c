@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:57:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/01/14 14:59:27 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/27 19:28:56 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "philo.h"
 
 int	main(int argc, char **argv)
 {
-	t_stack	*stack_a;
-	t_dtint	data;
+	t_table		table;
 
-	if (argc == 1)
-		exit(0);
+	if (argc < 5 || argc > 6)
+		ft_exit_error(1);
 	ft_data_validation(argv, argc);
-	data = ft_data_load(argv, argc);
-	if (ft_check_dupl(data))
-	{
-		free(data.nb);
-		ft_exit_error();
-	}
-	stack_a = ft_build_stack(data);
-	if (!ft_issorted(stack_a))
-	{
-		ft_stack_keying(&stack_a);
-		ft_stack_indexing(&stack_a);
-		ft_sort_select(stack_a);
-	}
-	free(data.nb);
-	ft_stack_free(&stack_a);
+	ft_set_table(argv, argc, &table);
+	ft_start_threads(&table);
+	ft_free_table(&table);
 	return (0);
 }
