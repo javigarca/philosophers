@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/27 19:53:32 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/28 21:50:29 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
 # include <pthread.h>
-# include <math.h>
+# include <semaphore.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <limits.h>
@@ -32,18 +32,16 @@ typedef struct s_env
 	long long		start_time;
 	int				death;
 	int				fat;
-	pthread_mutex_t	message;
-	pthread_mutex_t	genesis;
+	sem_t			sem_message;
+	sem_t			sem_forks;
 }			t_env;
 
 typedef struct s_philo
 {
-	int				p_id;
-	pthread_t		t_id;
+	int				philo_id;
+	pid_t			p_id;
 	int				meals_eaten;
 	long long		last_meal;
-	pthread_mutex_t	*forkl;
-	pthread_mutex_t	*forkr;
 	t_env			*env;
 }			t_philo;
 
@@ -51,7 +49,6 @@ typedef struct s_table
 {
 	int				total_philos;
 	pthread_t		aristotle;
-	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	t_env			env;
 }			t_table;
@@ -68,13 +65,10 @@ long long	ft_time_now(void);
 long long	ft_timestamp(long long time);
 void		ft_print(t_philo *philo, char *msg);
 // philo_init //
-void		ft_set_mutex(t_table *table);
+void		ft_set_semaphores(t_table *table);
 void		ft_set_philos(t_table *table);
-void		ft_set_forks(t_philo *philo, t_table *table);
-void		ft_set_threads(t_table *table);
-int			ft_start_threads(t_table *table);
-// philo_threads //
-void		*ft_philo_thread(void *args);
+// philo_academia //
+void		ft_philo_life(t_philo *philo);
 void		ft_sleep(long long time, int *death);
 void		*ft_aristotle(void *args);
 int			ft_check_death(t_table *academia);

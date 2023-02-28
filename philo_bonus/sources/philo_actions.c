@@ -6,29 +6,25 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/27 18:33:38 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/28 21:54:27 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	ft_philo_eats(t_philo *philo)
 {
 	if (philo->env->death)
 		return (1);
-	pthread_mutex_lock(philo->forkl);
+	sem_wait(sem_forks);
 	ft_print(philo, "has taken a fork");
-	if (philo->forkr)
-		pthread_mutex_lock(philo->forkr);
-	else
-		return (1);
+	sem_wait(sem_forks);
 	ft_print(philo, "has taken a fork");
 	ft_print(philo, "is eating");
 	philo->last_meal = ft_time_now();
 	ft_sleep(philo->env->time_eat, &philo->env->death);
-	pthread_mutex_unlock(philo->forkl);
-	pthread_mutex_unlock(philo->forkr);
-	philo->meals_eaten++;
+	sem_post(philo->forks);
+	sem_post(philo->forks);
 	return (0);
 }
 

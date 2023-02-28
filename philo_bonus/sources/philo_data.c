@@ -6,11 +6,11 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 15:23:46 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/28 19:55:08 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	ft_data_validation(char **data, int argc)
 {
@@ -39,10 +39,10 @@ void	ft_set_table(char **data, int argc, t_table *table)
 		table->env.times_m_eat = ft_myatoi(data[5]);
 	else
 		table->env.times_m_eat = 0;
-	ft_set_mutex(table);
+	ft_set_semaphores(table);
 	table->env.start_time = ft_time_now();
 	ft_set_philos(table);
-	ft_set_threads(table);
+//	ft_set_threads(table);
 }
 
 long	ft_myatoi(const char *str)
@@ -74,13 +74,7 @@ long	ft_myatoi(const char *str)
 
 void	ft_free_table(t_table *table)
 {
-	int	i;
-
-	pthread_mutex_destroy(&table->env.message);
-	pthread_mutex_destroy(&table->env.genesis);
-	i = -1;
-	while (++i < table->total_philos)
-		pthread_mutex_destroy(&table->forks[i]);
-	free(table->forks);
+	sem_close(table->env.sem_forks);
+	sem_close(table->env.sem_message);
 	free(table->philos);
 }

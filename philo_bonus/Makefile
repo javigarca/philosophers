@@ -6,7 +6,7 @@
 #    By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/13 15:38:08 by javigarc          #+#    #+#              #
-#    Updated: 2023/02/27 20:10:38 by javi             ###   ########.fr        #
+#    Updated: 2023/02/28 21:43:35 by javi             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,12 @@ NAME		=	philo_bonus
 
 SDIR		=	sources/
 
-SRCS		=	$(SDIR)/philo.c \
-				$(SDIR)/philo_actions.c \
+SRCS		=	$(SDIR)/philo_bonus.c \
 				$(SDIR)/philo_data.c \
-				$(SDIR)/philo_init.c \
-				$(SDIR)/philo_threads.c \
 				$(SDIR)/philo_utils.c \
+				$(SDIR)/philo_init.c \
+				$(SDIR)/philo_academia.c \
+				$(SDIR)/philo_actions.c \
 
 OBJS		=	${SRCS:.c=.o}
 

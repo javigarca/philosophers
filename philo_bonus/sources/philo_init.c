@@ -6,27 +6,24 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/22 14:29:49 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/02/28 22:11:06 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-void	ft_set_mutex(t_table *table)
+void	ft_set_semaphores(t_table *table)
 {
-	int	i;
-
-	pthread_mutex_init(&table->env.message, NULL);
-	pthread_mutex_init(&table->env.genesis, NULL);
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->total_philos);
-	if (!table->forks)
-		ft_exit_error(3);
-	i = -1;
-	while (++i < table->total_philos)
-	{
-		if (pthread_mutex_init(&table->forks[i], NULL))
-			ft_exit_error(4);
-	}
+	sem_unlink("sem_message");
+	sem_unlink("sem_forks");
+	table->env.sem_message = sem_open("sem_message", O_CREAT | O_EXCL, 0644, 1);
+	if (!table->env.sem_message)
+		ft_exit_error(4);
+	table->env.sem_forks = sem_open("sem_forks", \
+		O_CREAT | O_EXCL, 0644, table->total_philos);
+	if (!table->env.sem_forks)
+		ft_exit_error(4);
+	return (0);
 }
 
 void	ft_set_philos(t_table *table)
@@ -39,53 +36,48 @@ void	ft_set_philos(t_table *table)
 	i = -1;
 	while (++i < table->total_philos)
 	{
-		table->philos[i].p_id = i + 1;
+		table->philos[i].philo_id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].last_meal = table->env.start_time;
 		table->philos[i].env = &table->env;
-		ft_set_forks(&table->philos[i], table);
 	}
 }
 
-void	ft_set_forks(t_philo *philo, t_table *table)
+int	stop_routines(t_table *table)
 {
-	philo->forkl = &table->forks[(philo->p_id - 1)];
-	if (philo->p_id == table->total_philos)
-		philo->forkr = &table->forks[0];
-	else
-		philo->forkr = &table->forks[(philo->p_id)];
-	if (table->total_philos == 1)
-		philo->forkr = NULL;
+	int	status;
+	int	i;
+
+	i = -1;
+	while (++i < table->num_philos)
+	{
+		waitpid(-1, &status, 0);
+		if (status != 0)
+		{
+			i = -1;
+			while (++i < table->num_philos)
+				kill(table->philos[i].pid, SIGKILL);
+			return (0);
+		}
+	}
+	return (0);
 }
 
-void	ft_set_threads(t_table *table)
+int	start_routines(t_table *table)
 {
 	int	i;
 
 	i = -1;
-	pthread_mutex_lock(&table->env.genesis);
-	if (pthread_create(&table->aristotle, NULL, &ft_aristotle, table))
-		ft_exit_error(5);
-	while (++i < table->total_philos)
+	table->data.start_time = timestamp();
+	while (++i < table->num_philos)
 	{
-		if (pthread_create(&table->philos[i].t_id, NULL, &ft_philo_thread, \
-				&table->philos[i]))
-			ft_exit_error(5);
+		table->philos[i].pid = fork();
+		if (table->philos[i].pid == 0)
+			philo_routine(&table->philos[i]);
+		else if (table->philos[i].pid < 0)
+			return (1);
+		usleep(100);
 	}
-	pthread_mutex_unlock(&table->env.genesis);
-}
-
-int	ft_start_threads(t_table *table)
-{
-	int	i;
-
-	i = -1;
-	while (++i < table->total_philos)
-	{
-		if (pthread_join(table->philos[i].t_id, NULL))
-			ft_exit_error(6);
-	}
-	if (pthread_join(table->aristotle, NULL))
-		ft_exit_error(6);
+	stop_routines (table);
 	return (0);
 }

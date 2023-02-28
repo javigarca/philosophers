@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_threads.c                                    :+:      :+:    :+:   */
+/*   philo_academia.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/28 18:51:46 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/28 21:52:17 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-void	*ft_philo_thread(void *args)
+void	ft_philo_life(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *) args;
 	if (!(philo->p_id % 2))
 		usleep(10000);
-	pthread_mutex_lock(&philo->env->genesis);
-	pthread_mutex_unlock(&philo->env->genesis);
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	while (!philo->env->death)

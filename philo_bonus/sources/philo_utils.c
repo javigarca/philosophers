@@ -6,27 +6,27 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:41 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/27 18:14:37 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/28 21:09:27 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	ft_exit_error(int err)
 {
 	if (err == 1)
-		ft_write_str("Usage ./philo nbr_philos time_die time_eat time_sleep \
+		ft_write_str("Usage ./philo_bonus nbr_philos time_die time_eat time_sleep \
 (optional) times_must_eat.\n", 2);
 	if (err == 2)
 		ft_write_str("Invalid arguments.\n", 2);
 	if (err == 3)
 		ft_write_str("Memory error.\n", 2);
 	if (err == 4)
-		ft_write_str("Mutex error.\n", 2);
+		ft_write_str("Semaphore error.\n", 2);
 	if (err == 5)
-		ft_write_str("Thread creation.\n", 2);
+		ft_write_str("Process error.\n", 2);
 	if (err == 6)
-		ft_write_str("Thread join.\n", 2);
+		ft_write_str("Thread error.\n", 2);
 	if (!err)
 		ft_write_str("Error.\n", 2);
 	exit(0);
@@ -65,9 +65,9 @@ void	ft_print(t_philo *philo, char *msg)
 {
 	long long	now;
 
-	pthread_mutex_lock(&philo->env->message);
+	sem_wait(philo->env->sem_message);
 	now = ft_timestamp(philo->env->start_time);
 	if (!philo->env->death)
 		printf("%.04lld Philosopher %d %s\n", now, philo->p_id, msg);
-	pthread_mutex_unlock(&philo->env->message);
+	sem_post(philo->env->sem_message);
 }
