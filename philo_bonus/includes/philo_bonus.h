@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/28 21:50:29 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/01 17:43:12 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_env
 
 typedef struct s_philo
 {
-	int				philo_id;
-	pid_t			p_id;
+	int				p_id;
+	pid_t			pp_id;
 	int				meals_eaten;
 	long long		last_meal;
 	t_env			*env;
@@ -67,6 +67,8 @@ void		ft_print(t_philo *philo, char *msg);
 // philo_init //
 void		ft_set_semaphores(t_table *table);
 void		ft_set_philos(t_table *table);
+void		ft_apocalypse(t_table *table);
+void		ft_genesis(t_table *table);
 // philo_academia //
 void		ft_philo_life(t_philo *philo);
 void		ft_sleep(long long time, int *death);

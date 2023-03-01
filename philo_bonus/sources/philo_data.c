@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/28 19:55:08 by javi             ###   ########.fr       */
+/*   Updated: 2023/02/28 22:13:42 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	ft_set_table(char **data, int argc, t_table *table)
 	ft_set_semaphores(table);
 	table->env.start_time = ft_time_now();
 	ft_set_philos(table);
-//	ft_set_threads(table);
 }
 
 long	ft_myatoi(const char *str)
