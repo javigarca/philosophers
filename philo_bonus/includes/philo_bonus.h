@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/01 17:43:12 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/01 21:20:27 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <sys/time.h>
+# include <signal.h>
 
 typedef struct s_env
 {
@@ -32,8 +33,8 @@ typedef struct s_env
 	long long		start_time;
 	int				death;
 	int				fat;
-	sem_t			sem_message;
-	sem_t			sem_forks;
+	sem_t			*sem_message;
+	sem_t			*sem_forks;
 }			t_env;
 
 typedef struct s_philo
@@ -67,16 +68,14 @@ void		ft_print(t_philo *philo, char *msg);
 // philo_init //
 void		ft_set_semaphores(t_table *table);
 void		ft_set_philos(t_table *table);
+void		ft_start_process(t_table *table);
 void		ft_apocalypse(t_table *table);
-void		ft_genesis(t_table *table);
-// philo_academia //
+// philo_run //
 void		ft_philo_life(t_philo *philo);
 void		ft_sleep(long long time, int *death);
 void		*ft_aristotle(void *args);
-int			ft_check_death(t_table *academia);
+int			ft_check_death(t_philo *philo);
 // philo_actions //
 int			ft_philo_eats(t_philo *philo);
-int			ft_philo_sleeps(t_philo *philo);
-int			ft_philo_thinks(t_philo	*philo);
 int			ft_philo_dies(t_philo *philo);
 #endif

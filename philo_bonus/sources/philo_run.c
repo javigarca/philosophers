@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/28 21:52:17 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/01 21:18:26 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	ft_philo_life(t_philo *philo)
 				philo->env->fat++;
 		}
 		else
-			return (NULL);
+			exit(1);
 		ft_print(philo, "is sleeping");
 		ft_sleep(philo->env->time_sleep, &philo->env->death);
 		ft_print(philo, "is thinking");
 	}
-	return (NULL);
+	exit(0);
 }
 
 void	ft_sleep(long long time, int *death)
@@ -78,7 +78,7 @@ int	ft_check_death(t_philo *philo)
 	if (hungry > philo->env->time_die)
 	{
 		ft_philo_dies(philo);
-			return (1);
+			exit(0);
 	}
 	return (0);
 }

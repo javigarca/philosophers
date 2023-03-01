@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:57:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/28 22:15:37 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/01 21:19:12 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 		ft_exit_error(1);
 	ft_data_validation(argv, argc);
 	ft_set_table(argv, argc, &table);
-	ft_genesis(&table);
+	ft_start_process(&table);
 	ft_free_table(&table);
 	return (0);
 }
