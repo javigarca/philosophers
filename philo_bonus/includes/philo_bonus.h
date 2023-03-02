@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/01 21:20:27 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:31:44 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdio.h>
 # include <limits.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 # include <signal.h>
 
 typedef struct s_env
@@ -43,13 +44,13 @@ typedef struct s_philo
 	pid_t			pp_id;
 	int				meals_eaten;
 	long long		last_meal;
+	pthread_t		aristotle;
 	t_env			*env;
 }			t_philo;
 
 typedef struct s_table
 {
 	int				total_philos;
-	pthread_t		aristotle;
 	t_philo			*philos;
 	t_env			env;
 }			t_table;
@@ -69,7 +70,7 @@ void		ft_print(t_philo *philo, char *msg);
 void		ft_set_semaphores(t_table *table);
 void		ft_set_philos(t_table *table);
 void		ft_start_process(t_table *table);
-void		ft_apocalypse(t_table *table);
+void		ft_stop_process(t_table *table);
 // philo_run //
 void		ft_philo_life(t_philo *philo);
 void		ft_sleep(long long time, int *death);

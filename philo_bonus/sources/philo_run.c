@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/01 21:18:26 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:52:53 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_philo_life(t_philo *philo)
 		usleep(10000);
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
+	if (pthread_create(&philo->aristotle, NULL, &ft_aristotle, philo))
+		ft_exit_error(6);
 	while (!philo->env->death)
 	{
 		if (!ft_philo_eats(philo))
@@ -31,7 +33,10 @@ void	ft_philo_life(t_philo *philo)
 		ft_sleep(philo->env->time_sleep, &philo->env->death);
 		ft_print(philo, "is thinking");
 	}
-	exit(0);
+	if (pthread_join(philo->aristotle, NULL))
+		ft_exit_error(6);
+	printf("FUERA: %i\n", philo->p_id);
+	exit(1);
 }
 
 void	ft_sleep(long long time, int *death)
@@ -49,22 +54,20 @@ void	ft_sleep(long long time, int *death)
 
 void	*ft_aristotle(void *args)
 {
-	t_table		*academia;
-	int			i;
+	t_philo		*philo;
 
-	academia = (t_table *) args;
-	while (academia->env.death == 0)
+	philo = (t_philo *) args;
+	printf("ESTOY en philo: %i\n", philo->p_id);
+	while (philo->env->death == 0)
 	{
-		i = -1;
-		while (++i < academia->total_philos)
-			if (ft_check_death(&academia->philos[i]))
-				return (NULL);
-		if (academia->env.times_m_eat && \
-				(academia->env.fat == academia->total_philos))
-		{
-			academia->env.death = 1;
-			return (NULL);
-		}
+		if (ft_check_death(philo))
+			exit (1);
+/*		if (academia->env.times_m_eat && \
+//				(academia->env.fat == academia->total_philos))
+//		{
+//			academia->env.death = 1;
+//			return (NULL);
+//		}*/
 		usleep(10);
 	}
 	return (NULL);
@@ -76,9 +79,6 @@ int	ft_check_death(t_philo *philo)
 
 	hungry = ft_timestamp(philo->last_meal);
 	if (hungry > philo->env->time_die)
-	{
 		ft_philo_dies(philo);
-			exit(0);
-	}
 	return (0);
 }

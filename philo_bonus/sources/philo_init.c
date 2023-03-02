@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/01 21:18:50 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:46:36 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_set_semaphores(t_table *table)
 {
 	sem_unlink("sem_message");
 	sem_unlink("sem_forks");
-
 	table->env.sem_message = sem_open("sem_message", O_CREAT | O_EXCL, 0644, 1);
 	if (table->env.sem_message == NULL)
 		ft_exit_error(4);
@@ -57,10 +56,10 @@ void	ft_start_process(t_table *table)
 			ft_exit_error(5);
 		usleep(100);
 	}
-//	ft_apocalypse(table);
+	ft_stop_process(table);
 }
 
-void	ft_apocalypse(t_table *table)
+void	ft_stop_process(t_table *table)
 {
 	int	status;
 	int	i;
