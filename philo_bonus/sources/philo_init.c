@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 13:40:22 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:51:48 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ft_start_process(t_table *table)
 			ft_philo_life(&table->philos[i]);
 		else if (table->philos[i].pp_id < 0)
 			ft_exit_error(5);
-		usleep(100);
 	}
 	ft_stop_process(table);
 }
@@ -68,7 +67,7 @@ void	ft_stop_process(t_table *table)
 	while (++i < table->total_philos)
 	{
 		waitpid(-1, &status, 0);
-		if (status != 0)
+		if (status == 1)
 		{
 			i = -1;
 			while (++i < table->total_philos)

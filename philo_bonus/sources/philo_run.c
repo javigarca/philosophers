@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 13:45:21 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:51:43 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	ft_philo_life(t_philo *philo)
 	{
 		if (!ft_philo_eats(philo))
 		{
-			if (philo->env->times_m_eat == philo->meals_eaten)
-				philo->env->fat++;
+			printf("philo: %i -- NUM: %i -- COMIDAS: %i\n", philo->p_id, philo->env->times_m_eat, philo->meals_eaten);
+			if ((philo->env->times_m_eat >0) && (philo->env->times_m_eat == philo->meals_eaten))
+				exit(2);
 		}
 		else
 			exit(1);
@@ -62,12 +63,6 @@ void	*ft_aristotle(void *args)
 	{
 		if (ft_check_death(philo))
 			exit (1);
-/*		if (academia->env.times_m_eat && \
-//				(academia->env.fat == academia->total_philos))
-//		{
-//			academia->env.death = 1;
-//			return (NULL);
-//		}*/
 		usleep(10);
 	}
 	exit(1);

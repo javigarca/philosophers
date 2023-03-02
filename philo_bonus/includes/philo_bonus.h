@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 13:45:25 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:51:46 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_env
 	int				times_m_eat;
 	long long		start_time;
 	int				death;
-	int				fat;
 	sem_t			*sem_message;
 	sem_t			*sem_forks;
 }			t_env;

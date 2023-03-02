@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:41 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 12:43:50 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:38:43 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_exit_error(int err)
 		ft_write_str("Thread error.\n", 2);
 	if (!err)
 		ft_write_str("Error.\n", 2);
-	exit(0);
+	exit(1);
 }
 
 int	ft_write_str(char *str, int channel)
