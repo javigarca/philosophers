@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 12:52:53 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:45:21 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ft_philo_life(t_philo *philo)
 {
-	if (!(philo->p_id % 2))
-		usleep(10000);
+//	if (!(philo->p_id % 2))
+//		usleep(1000);
+	ft_print(philo, "STARTS");
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	if (pthread_create(&philo->aristotle, NULL, &ft_aristotle, philo))
@@ -57,7 +58,6 @@ void	*ft_aristotle(void *args)
 	t_philo		*philo;
 
 	philo = (t_philo *) args;
-	printf("ESTOY en philo: %i\n", philo->p_id);
 	while (philo->env->death == 0)
 	{
 		if (ft_check_death(philo))
@@ -70,7 +70,7 @@ void	*ft_aristotle(void *args)
 //		}*/
 		usleep(10);
 	}
-	return (NULL);
+	exit(1);
 }
 
 int	ft_check_death(t_philo *philo)
@@ -79,6 +79,9 @@ int	ft_check_death(t_philo *philo)
 
 	hungry = ft_timestamp(philo->last_meal);
 	if (hungry > philo->env->time_die)
+	{
 		ft_philo_dies(philo);
+		return (1);
+	}
 	return (0);
 }
