@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/28 19:16:21 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/04 22:12:41 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_check_death(t_philo *philo)
 	if (hungry > philo->env->time_die)
 	{
 		ft_philo_dies(philo);
-			return (1);
+		return (1);
 	}
 	return (0);
 }

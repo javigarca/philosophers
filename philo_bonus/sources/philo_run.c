@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_academia.c                                   :+:      :+:    :+:   */
+/*   philo_run.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 18:51:43 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/04 22:09:25 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_philo_life(t_philo *philo)
 {
-//	if (!(philo->p_id % 2))
-//		usleep(1000);
+	if (philo->p_id % 2)
+		usleep(1000);
 	ft_print(philo, "STARTS");
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
@@ -25,8 +25,8 @@ void	ft_philo_life(t_philo *philo)
 	{
 		if (!ft_philo_eats(philo))
 		{
-			printf("philo: %i -- NUM: %i -- COMIDAS: %i\n", philo->p_id, philo->env->times_m_eat, philo->meals_eaten);
-			if ((philo->env->times_m_eat >0) && (philo->env->times_m_eat == philo->meals_eaten))
+			if ((philo->env->times_m_eat > 0) && \
+					(philo->env->times_m_eat == philo->meals_eaten))
 				exit(2);
 		}
 		else
@@ -38,7 +38,7 @@ void	ft_philo_life(t_philo *philo)
 	if (pthread_join(philo->aristotle, NULL))
 		ft_exit_error(6);
 	printf("FUERA: %i\n", philo->p_id);
-	exit(1);
+	exit(0);
 }
 
 void	ft_sleep(long long time, int *death)
@@ -62,10 +62,10 @@ void	*ft_aristotle(void *args)
 	while (philo->env->death == 0)
 	{
 		if (ft_check_death(philo))
-			exit (1);
+			exit (0);
 		usleep(10);
 	}
-	exit(1);
+	exit(0);
 }
 
 int	ft_check_death(t_philo *philo)

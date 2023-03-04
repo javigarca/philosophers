@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/02 18:44:26 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/04 21:04:13 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_set_table(char **data, int argc, t_table *table)
 {
 	table->total_philos = ft_myatoi(data[1]);
 	table->env.death = 0;
-	table->env.fat = 0;
 	table->env.time_die = ft_myatoi(data[2]);
 	table->env.time_eat = ft_myatoi(data[3]);
 	table->env.time_sleep = ft_myatoi(data[4]);
