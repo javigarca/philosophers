@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/04 22:09:25 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/04 22:29:57 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_philo_life(t_philo *philo)
 {
-	if (philo->p_id % 2)
-		usleep(1000);
-	ft_print(philo, "STARTS");
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	if (pthread_create(&philo->aristotle, NULL, &ft_aristotle, philo))

@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/04 21:49:23 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/04 22:28:25 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_start_process(t_table *table)
 {
 	int	i;
 
+	table->env.start_time = ft_time_now();
 	i = -1;
 	while (++i < table->total_philos)
 	{
