@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/04 21:48:51 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/06 22:38:28 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <string.h>
 # include <pthread.h>
 # include <semaphore.h>
-# include <fcntl.h>
 # include <stdio.h>
 # include <limits.h>
 # include <sys/time.h>
@@ -40,7 +39,7 @@ typedef struct s_env
 typedef struct s_philo
 {
 	int				p_id;
-	pid_t			pp_id;
+	pid_t			f_id;
 	int				meals_eaten;
 	long long		last_meal;
 	pthread_t		aristotle;
@@ -54,28 +53,29 @@ typedef struct s_table
 	t_env			env;
 }			t_table;
 
-// philo_data //
-void		ft_data_validation(char **data, int argc);
-void		ft_set_table(char **data, int argc, t_table *table);
-long		ft_myatoi(const char *str);
-void		ft_free_table(t_table *table);
+// philo_process //
+void		ft_start_process(t_table *table);
+void		ft_stop_process(t_table *table);
 // philo_utils //
 void		ft_exit_error(int err);
 int			ft_write_str(char *str, int channel);
 long long	ft_time_now(void);
 long long	ft_timestamp(long long time);
 void		ft_print(t_philo *philo, char *msg);
-// philo_init //
+// philo_utils_2 //
+void		ft_free_table(t_table *table);
+long		ft_myatoi(const char *str);
+void		ft_sleep(long long time, int *death);
+// philo_set //
 void		ft_set_semaphores(t_table *table);
 void		ft_set_philos(t_table *table);
-void		ft_start_process(t_table *table);
-void		ft_stop_process(t_table *table);
+void		ft_data_validation(char **data, int argc);
+void		ft_set_table(char **data, int argc, t_table *table);
 // philo_run //
 void		ft_philo_life(t_philo *philo);
-void		ft_sleep(long long time, int *death);
-void		*ft_aristotle(void *args);
-int			ft_check_death(t_philo *philo);
-// philo_actions //
 int			ft_philo_eats(t_philo *philo);
 int			ft_philo_dies(t_philo *philo);
+void		*ft_aristotle(void *args);
+int			ft_check_death(t_philo *philo);
+
 #endif

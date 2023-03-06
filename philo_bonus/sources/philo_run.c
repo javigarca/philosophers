@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/06 15:41:07 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/06 22:10:14 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	ft_philo_life(t_philo *philo)
 {
-//	printf("AHORA EMPIEZAS: %lld\n", ft_timestamp(philo->env->start_time));
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	if (pthread_create(&philo->aristotle, NULL, &ft_aristotle, philo))
 		ft_exit_error(6);
-//	printf("AHORA ES: %lld\n", ft_timestamp(philo->env->start_time));
 	while (!philo->env->death)
 	{
 		if (!ft_philo_eats(philo))
@@ -38,18 +36,29 @@ void	ft_philo_life(t_philo *philo)
 		ft_exit_error(6);
 	exit(0);
 }
-
-void	ft_sleep(long long time, int *death)
+int	ft_philo_eats(t_philo *philo)
 {
-	long long	start;
+	if (philo->env->death)
+		return (1);
+	sem_wait(philo->env->sem_forks);
+	ft_print(philo, "has taken a fork");
+	sem_wait(philo->env->sem_forks);
+	ft_print(philo, "has taken a fork");
+	ft_print(philo, "is eating");
+	philo->last_meal = ft_time_now();
+	ft_sleep(philo->env->time_eat, &philo->env->death);
+	philo->meals_eaten++;
+	sem_post(philo->env->sem_forks);
+	sem_post(philo->env->sem_forks);
+	return (0);
+}
 
-	start = ft_time_now();
-	while (!*death)
-	{
-		if ((ft_time_now() - start) >= time)
-			break ;
-		usleep(300);
-	}
+int	ft_philo_dies(t_philo *philo)
+{
+	ft_print(philo, "is dead");
+	sem_wait(philo->env->sem_message);
+	philo->env->death = 1;
+	return (0);
 }
 
 void	*ft_aristotle(void *args)

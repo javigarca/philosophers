@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/06 15:42:06 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/06 22:34:56 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,47 +38,36 @@ void	ft_set_philos(t_table *table)
 		table->philos[i].p_id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].last_meal = table->env.start_time;
-	//	table->philos[i].env = &table->env;
-	}
-}
-
-void	ft_start_process(t_table *table)
-{
-	int	i;
-
-	table->env.start_time = ft_time_now();
-	printf("tiempo start antes: %lld\n", table->env.start_time);
-	i = -1;
-	printf("AHORA EMPIEZAS: %lld\n", ft_timestamp(table->env.start_time));
-	while (++i < table->total_philos)
-	{
-		//table->env.start_time = ft_time_now();
 		table->philos[i].env = &table->env;
-		printf("tiempo start philos: %lld\n", table->philos[i].env->start_time);
-		table->philos[i].pp_id = fork();
-		if (table->philos[i].pp_id == 0)
-			ft_philo_life(&table->philos[i]);
-		else if (table->philos[i].pp_id < 0)
-			ft_exit_error(5);
-	printf("AHORA acabas: %lld\n", ft_timestamp(table->env.start_time));
 	}
-	ft_stop_process(table);
+}
+void	ft_data_validation(char **data, int argc)
+{
+	int		i;
+	long	chk;
+
+	i = 1;
+	while (i < argc)
+	{
+		chk = ft_myatoi(data[i]);
+		if ((chk < 0) || (chk > INT_MAX))
+			ft_exit_error(2);
+		i++;
+	}
 }
 
-void	ft_stop_process(t_table *table)
+void	ft_set_table(char **data, int argc, t_table *table)
 {
-	int	status;
-	int	i;
-
-	i = -1;
-	while (++i < table->total_philos)
-	{
-		waitpid(-1, &status, 0);
-		if (status != 2)
-		{
-			i = -1;
-			while (++i < table->total_philos)
-				kill(table->philos[i].pp_id, SIGKILL);
-		}
-	}
+	table->total_philos = ft_myatoi(data[1]);
+	table->env.death = 0;
+	table->env.time_die = ft_myatoi(data[2]);
+	table->env.time_eat = ft_myatoi(data[3]);
+	table->env.time_sleep = ft_myatoi(data[4]);
+	if (argc == 6)
+		table->env.times_m_eat = ft_myatoi(data[5]);
+	else
+		table->env.times_m_eat = 0;
+	ft_set_semaphores(table);
+	table->env.start_time = ft_time_now();
+	ft_set_philos(table);
 }

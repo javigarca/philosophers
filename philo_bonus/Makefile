@@ -15,11 +15,11 @@ NAME		=	philo_bonus
 SDIR		=	sources/
 
 SRCS		=	$(SDIR)/philo_bonus.c \
-				$(SDIR)/philo_data.c \
+				$(SDIR)/philo_process.c \
 				$(SDIR)/philo_utils.c \
-				$(SDIR)/philo_init.c \
+				$(SDIR)/philo_utils_2.c \
 				$(SDIR)/philo_run.c \
-				$(SDIR)/philo_actions.c \
+				$(SDIR)/philo_set.c \
 
 OBJS		=	${SRCS:.c=.o}
 
