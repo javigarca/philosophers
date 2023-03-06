@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/04 22:28:25 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/06 15:42:06 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_set_philos(t_table *table)
 		table->philos[i].p_id = i + 1;
 		table->philos[i].meals_eaten = 0;
 		table->philos[i].last_meal = table->env.start_time;
-		table->philos[i].env = &table->env;
+	//	table->philos[i].env = &table->env;
 	}
 }
 
@@ -47,14 +47,20 @@ void	ft_start_process(t_table *table)
 	int	i;
 
 	table->env.start_time = ft_time_now();
+	printf("tiempo start antes: %lld\n", table->env.start_time);
 	i = -1;
+	printf("AHORA EMPIEZAS: %lld\n", ft_timestamp(table->env.start_time));
 	while (++i < table->total_philos)
 	{
+		//table->env.start_time = ft_time_now();
+		table->philos[i].env = &table->env;
+		printf("tiempo start philos: %lld\n", table->philos[i].env->start_time);
 		table->philos[i].pp_id = fork();
 		if (table->philos[i].pp_id == 0)
 			ft_philo_life(&table->philos[i]);
 		else if (table->philos[i].pp_id < 0)
 			ft_exit_error(5);
+	printf("AHORA acabas: %lld\n", ft_timestamp(table->env.start_time));
 	}
 	ft_stop_process(table);
 }

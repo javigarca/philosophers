@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/04 22:29:57 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/06 15:41:07 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	ft_philo_life(t_philo *philo)
 {
+//	printf("AHORA EMPIEZAS: %lld\n", ft_timestamp(philo->env->start_time));
 	if (philo->env->time_die == 0)
 		ft_philo_dies(philo);
 	if (pthread_create(&philo->aristotle, NULL, &ft_aristotle, philo))
 		ft_exit_error(6);
+//	printf("AHORA ES: %lld\n", ft_timestamp(philo->env->start_time));
 	while (!philo->env->death)
 	{
 		if (!ft_philo_eats(philo))
@@ -34,7 +36,6 @@ void	ft_philo_life(t_philo *philo)
 	}
 	if (pthread_join(philo->aristotle, NULL))
 		ft_exit_error(6);
-	printf("FUERA: %i\n", philo->p_id);
 	exit(0);
 }
 
@@ -60,7 +61,7 @@ void	*ft_aristotle(void *args)
 	{
 		if (ft_check_death(philo))
 			exit (0);
-		usleep(10);
+		usleep(100);
 	}
 	exit(0);
 }
