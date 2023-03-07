@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/27 21:31:48 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/07 17:53:11 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_env
 	int				fat;
 	pthread_mutex_t	message;
 	pthread_mutex_t	genesis;
+	pthread_mutex_t	changes;
 }			t_env;
 
 typedef struct s_philo

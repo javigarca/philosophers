@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/04 22:12:41 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/07 18:22:11 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_philo_thread(void *args)
 
 	philo = (t_philo *) args;
 	if (!(philo->p_id % 2))
-		usleep(10000);
+		usleep(15000);
 	pthread_mutex_lock(&philo->env->genesis);
 	pthread_mutex_unlock(&philo->env->genesis);
 	if (philo->env->time_die == 0)
@@ -62,15 +62,21 @@ void	*ft_aristotle(void *args)
 	{
 		i = -1;
 		while (++i < academia->total_philos)
+		{
 			if (ft_check_death(&academia->philos[i]))
+			{
+				ft_print(&academia->philos[i], "is dead");
+				academia->env.death = 1;
 				return (NULL);
+			}
+		}
 		if (academia->env.times_m_eat && \
 				(academia->env.fat == academia->total_philos))
 		{
 			academia->env.death = 1;
 			return (NULL);
 		}
-		usleep(10);
+		usleep(100);
 	}
 	return (NULL);
 }
@@ -80,10 +86,12 @@ int	ft_check_death(t_philo *philo)
 	long long	hungry;
 
 	hungry = ft_timestamp(philo->last_meal);
+	pthread_mutex_lock(&philo->env->changes);
 	if (hungry > philo->env->time_die)
 	{
-		ft_philo_dies(philo);
+		pthread_mutex_unlock(&philo->env->changes);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->env->changes);
 	return (0);
 }

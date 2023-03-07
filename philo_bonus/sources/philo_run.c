@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/06 22:10:14 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/07 18:17:20 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_philo_life(t_philo *philo)
 		ft_exit_error(6);
 	exit(0);
 }
+
 int	ft_philo_eats(t_philo *philo)
 {
 	if (philo->env->death)

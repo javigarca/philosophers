@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_init.c                                       :+:      :+:    :+:   */
+/*   philo_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/06 22:34:56 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/07 18:17:36 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_set_philos(t_table *table)
 		table->philos[i].env = &table->env;
 	}
 }
+
 void	ft_data_validation(char **data, int argc)
 {
 	int		i;

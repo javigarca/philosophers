@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/22 14:29:49 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:54:12 by javi             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_set_mutex(t_table *table)
 
 	pthread_mutex_init(&table->env.message, NULL);
 	pthread_mutex_init(&table->env.genesis, NULL);
+	pthread_mutex_init(&table->env.changes, NULL);
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->total_philos);
 	if (!table->forks)
 		ft_exit_error(3);
