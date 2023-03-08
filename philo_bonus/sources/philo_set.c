@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/07 18:17:36 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/08 17:43:19 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	ft_set_semaphores(t_table *table)
 {
+	sem_unlink("sem_dead");
 	sem_unlink("sem_message");
 	sem_unlink("sem_forks");
+	table->env.sem_dead = sem_open("sem_dead", O_CREAT | O_EXCL, 0644, 1);
+	if (table->env.sem_dead == NULL)
+		ft_exit_error(4);
 	table->env.sem_message = sem_open("sem_message", O_CREAT | O_EXCL, 0644, 1);
 	if (table->env.sem_message == NULL)
 		ft_exit_error(4);

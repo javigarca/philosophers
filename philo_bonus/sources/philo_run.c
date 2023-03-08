@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/07 18:17:20 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/08 17:36:52 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_philo_eats(t_philo *philo)
 
 int	ft_philo_dies(t_philo *philo)
 {
+	sem_wait(philo->env->sem_dead);
 	ft_print(philo, "is dead");
 	sem_wait(philo->env->sem_message);
 	philo->env->death = 1;
