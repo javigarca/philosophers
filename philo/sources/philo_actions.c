@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/07 17:55:44 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/09 22:31:32 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_philo_dies(t_philo *philo)
 {
 	if (philo->env->death)
 		return (1);
-	ft_print(philo, "is dead");
+	ft_print(philo, "died");
 	philo->env->death = 1;
 	return (0);
 }

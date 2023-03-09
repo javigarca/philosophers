@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/07 18:22:11 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/09 22:40:08 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	*ft_aristotle(void *args)
 		{
 			if (ft_check_death(&academia->philos[i]))
 			{
-				ft_print(&academia->philos[i], "is dead");
+				ft_print(&academia->philos[i], "died");
 				academia->env.death = 1;
 				return (NULL);
 			}
