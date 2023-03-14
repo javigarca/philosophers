@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/09 22:35:03 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:28:19 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_philo_life(t_philo *philo)
 				exit(2);
 		}
 		else
-			exit(1);
+			exit(0);
 		ft_print(philo, "is sleeping");
 		ft_sleep(philo->env->time_sleep, &philo->env->death);
 		ft_print(philo, "is thinking");
@@ -54,13 +54,13 @@ int	ft_philo_eats(t_philo *philo)
 	return (0);
 }
 
-int	ft_philo_dies(t_philo *philo)
+void	ft_philo_dies(t_philo *philo)
 {
 	sem_wait(philo->env->sem_dead);
 	ft_print(philo, "died");
 	sem_wait(philo->env->sem_message);
 	philo->env->death = 1;
-	return (0);
+	exit(0);
 }
 
 void	*ft_aristotle(void *args)
@@ -70,22 +70,17 @@ void	*ft_aristotle(void *args)
 	philo = (t_philo *) args;
 	while (philo->env->death == 0)
 	{
-		if (ft_check_death(philo))
-			exit (0);
+		ft_check_death(philo);
 		usleep(100);
 	}
-	exit(0);
+	return (NULL);
 }
 
-int	ft_check_death(t_philo *philo)
+void	ft_check_death(t_philo *philo)
 {
 	long long	hungry;
 
 	hungry = ft_timestamp(philo->last_meal);
 	if (hungry > philo->env->time_die)
-	{
 		ft_philo_dies(philo);
-		return (1);
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/08 17:43:23 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:19:15 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void		ft_set_table(char **data, int argc, t_table *table);
 // philo_run //
 void		ft_philo_life(t_philo *philo);
 int			ft_philo_eats(t_philo *philo);
-int			ft_philo_dies(t_philo *philo);
+void		ft_philo_dies(t_philo *philo);
 void		*ft_aristotle(void *args);
-int			ft_check_death(t_philo *philo);
+void		ft_check_death(t_philo *philo);
 
 #endif
