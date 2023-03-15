@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/08 17:35:11 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:48:28 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_stop_process(t_table *table)
 	while (++i < table->total_philos)
 	{
 		waitpid(-1, &status, 0);
-		if (status != 2)
+		if (status != 512)
 		{
 			i = -1;
 			while (++i < table->total_philos)
