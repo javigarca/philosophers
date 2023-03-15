@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:01:26 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/07 17:53:11 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/15 16:21:10 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 	pthread_t		t_id;
 	int				meals_eaten;
 	long long		last_meal;
+	pthread_mutex_t	death;
 	pthread_mutex_t	*forkl;
 	pthread_mutex_t	*forkr;
 	t_env			*env;

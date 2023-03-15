@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:14:51 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/15 09:59:13 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:16:39 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_set_philos(t_table *table)
 		table->philos[i].last_meal = table->env.start_time;
 		table->philos[i].env = &table->env;
 		ft_set_forks(&table->philos[i], table);
+		pthread_mutex_init(&table->philos[i].death, NULL);
 	}
 }
 

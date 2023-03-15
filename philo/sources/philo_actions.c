@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 12:30:23 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/09 22:31:32 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:31:22 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	ft_philo_eats(t_philo *philo)
 {
+	if (pthread_mutex_lock(&philo->death))
+		return (1);
+	pthread_mutex_unlock(&philo->death);
 	pthread_mutex_lock(philo->forkl);
 	ft_print(philo, "has taken a fork");
 	if (philo->forkr)
@@ -38,5 +41,6 @@ int	ft_philo_dies(t_philo *philo)
 		return (1);
 	ft_print(philo, "died");
 	philo->env->death = 1;
+	pthread_mutex_lock(&philo->death);
 	return (0);
 }

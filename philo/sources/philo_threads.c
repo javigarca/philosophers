@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/09 22:40:08 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:35:41 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ void	*ft_philo_thread(void *args)
 		usleep(15000);
 	pthread_mutex_lock(&philo->env->genesis);
 	pthread_mutex_unlock(&philo->env->genesis);
-	if (philo->env->time_die == 0)
-		ft_philo_dies(philo);
 	while (!philo->env->death)
 	{
 		if (!ft_philo_eats(philo))
 		{
 			if (philo->env->times_m_eat == philo->meals_eaten)
+			{
 				philo->env->fat++;
+				return (NULL);
+			}
 		}
 		else
 			return (NULL);
@@ -76,7 +77,7 @@ void	*ft_aristotle(void *args)
 			academia->env.death = 1;
 			return (NULL);
 		}
-		usleep(100);
+		usleep(10);
 	}
 	return (NULL);
 }
