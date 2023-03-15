@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/02/20 15:23:46 by javi             ###   ########.fr       */
+/*   Updated: 2023/03/15 09:58:02 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_data_validation(char **data, int argc)
 	while (i < argc)
 	{
 		chk = ft_myatoi(data[i]);
-		if ((chk < 0) || (chk > INT_MAX))
+		if ((chk <= 0) || (chk > INT_MAX))
 			ft_exit_error(2);
 		i++;
 	}
