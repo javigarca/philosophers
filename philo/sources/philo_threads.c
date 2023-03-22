@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/22 17:29:09 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:11:07 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_philo_thread(void *args)
 		usleep(15000);
 	pthread_mutex_lock(&philo->env->genesis);
 	pthread_mutex_unlock(&philo->env->genesis);
-	while (!philo->env->death)
+	while (!check_changes_philo(philo))
 	{
 		if (!ft_philo_eats(philo))
 		{
@@ -34,24 +34,19 @@ void	*ft_philo_thread(void *args)
 		else
 			return (NULL);
 		ft_print(philo, "is sleeping");
-		ft_sleep(philo->env->time_sleep, &philo->env->death);
+		ft_sleep(philo->env->time_sleep);
 		ft_print(philo, "is thinking");
-
 	}
 	return (NULL);
 }
 
-void	ft_sleep(long long time, int *death)
+void	ft_sleep(long long time)
 {
 	long long	start;
 
 	start = ft_time_now();
-	while (!*death)
-	{
-		if ((ft_time_now() - start) >= time)
-			break ;
+	while ((ft_time_now() - start) < time)
 		usleep(300);
-	}
 }
 
 void	*ft_aristotle(void *args)
@@ -100,8 +95,7 @@ int	ft_check_death(t_philo *philo)
 
 void	kill_table(t_table *table)
 {
-	
 	pthread_mutex_lock(&table->env.changes);
-	table->env.death=1;
+	table->env.death = 1;
 	pthread_mutex_unlock(&table->env.changes);
 }
