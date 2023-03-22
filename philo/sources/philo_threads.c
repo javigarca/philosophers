@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:29:49 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/15 16:35:41 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:29:09 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	*ft_philo_thread(void *args)
 		ft_print(philo, "is sleeping");
 		ft_sleep(philo->env->time_sleep, &philo->env->death);
 		ft_print(philo, "is thinking");
+
 	}
 	return (NULL);
 }
@@ -67,14 +68,14 @@ void	*ft_aristotle(void *args)
 			if (ft_check_death(&academia->philos[i]))
 			{
 				ft_print(&academia->philos[i], "died");
-				academia->env.death = 1;
+				kill_table(academia);
 				return (NULL);
 			}
 		}
 		if (academia->env.times_m_eat && \
 				(academia->env.fat == academia->total_philos))
 		{
-			academia->env.death = 1;
+			kill_table(academia);
 			return (NULL);
 		}
 		usleep(10);
@@ -86,8 +87,8 @@ int	ft_check_death(t_philo *philo)
 {
 	long long	hungry;
 
-	hungry = ft_timestamp(philo->last_meal);
 	pthread_mutex_lock(&philo->env->changes);
+	hungry = ft_timestamp(philo->last_meal);
 	if (hungry > philo->env->time_die)
 	{
 		pthread_mutex_unlock(&philo->env->changes);
@@ -95,4 +96,12 @@ int	ft_check_death(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->env->changes);
 	return (0);
+}
+
+void	kill_table(t_table *table)
+{
+	
+	pthread_mutex_lock(&table->env.changes);
+	table->env.death=1;
+	pthread_mutex_unlock(&table->env.changes);
 }
