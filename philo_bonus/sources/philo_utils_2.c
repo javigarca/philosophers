@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 20:19:28 by javigarc          #+#    #+#             */
-/*   Updated: 2023/03/09 22:37:27 by javigarc         ###   ########.fr       */
+/*   Updated: 2023/03/23 14:37:24 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	ft_free_table(t_table *table)
 {
 	sem_close(table->env.sem_forks);
 	sem_close(table->env.sem_message);
+	sem_close(table->env.sem_dead);
 	free(table->philos);
 }
